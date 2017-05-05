@@ -1,11 +1,11 @@
-# DelayFragment   
-Fragment延迟加载数据   
+# DelayFragment   
+### Fragment延迟加载数据   
 在实际使用中，考虑到性能和体验等方面，在fragment加载数据的时机有两种情况：   
 1，在页面第一次可见时，加载数据，往后再次进入到该页面，需要手动刷新重新获取数据：   
 2，无论何时，只要页面可见，就自动加载数据。   
 而fragment主要用在两个地方：一是TabLayout和ViewPager结合使用，二是和DrawerLayout结合使用。   
    
-一，TabLayout和ViewPager模式   
+### 一，TabLayout和ViewPager模式   
 这种模式下，是通过FragmentPagerAdapter方式添加fragment，fragment是否可见是通过回调方法setUserVisibleHint。其中，要调用mViewPager.setOffscreenPageLimit(fragments.size-1); 缓存页面，防止切换时销毁fragment   
 ```   
 /**
@@ -24,7 +24,7 @@ public void setUserVisibleHint(boolean isVisibleToUser) {
     }
 }
 ```   
-二，DrawerLayout模式   
+### 二，DrawerLayout模式   
 这种模式是通过add()方法添加fragment，show()方法显示，fragment是否可见是通过回调方法onHiddenChanged。
 ```   
 /**
@@ -46,7 +46,7 @@ public void onHiddenChanged(boolean hidden) {
     }
 }
 ```   
-三，控制可见时是否马上加载数据   
+### 三，控制可见时是否马上加载数据   
 ```   
 @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,7 +76,7 @@ public void onHiddenChanged(boolean hidden) {
         }
     }
 ```   
-## 注意点： ###   
+### 注意点：    
 如果app的结构是DrawerLayout+（TabLayout和Viewpager）：   
 1，则在当前的Activity的DrawerLayout添加fragment获取的FragmentManager是通过getSupportFragmentManager()；而在fragment中添加子fragment获取的FragmentManager是通过getChildFragmentManager()。   
 源码解析：   
@@ -102,6 +102,7 @@ final public FragmentManager getChildFragmentManager() {
    return mChildFragmentManager;  
 }  
 ```   
+
 ```   
 /**
  * Return the FragmentManager for interacting with fragments associated
@@ -112,8 +113,6 @@ public FragmentManager getSupportFragmentManager() {
    return mFragments.getSupportFragmentManager();
 }
 ```   
-
-
 2，当点击DrawerLayout的tab切换到包含子fragment的fragment A时，最终调用lazyLoad()的只有fragment A，其子fragment则不会调用，解决如下：   
 ```   
 /**
