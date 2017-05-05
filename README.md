@@ -47,12 +47,17 @@ public void onHiddenChanged(boolean hidden) {
     }
 }   
 ```    
+### 三，控制可见时是否马上加载数据   
+```
+@Override
+public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+   View view = initCreateView(inflater, container, savedInstanceState);
+   isFirst = true;
+   return view;
+}
+```   
 
-   
-      
-      
-
-### 注意点：   
+### 注意点：   
 如果app的结构是DrawerLayout+（TabLayout和Viewpager）：   
 1，则在当前的Activity的DrawerLayout添加fragment获取的FragmentManager是通过getSupportFragmentManager()；而在fragment中添加子fragment获取的FragmentManager是通过getChildFragmentManager()。   
 源码解析：   
