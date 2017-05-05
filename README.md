@@ -76,10 +76,10 @@ public void onResume() {
    if (getUserVisibleHint()) {
        doVisible();
    }
-}    
+}   
 ```    
 
-### 注意点：    
+### 注意点：   
 如果app的结构是DrawerLayout+（TabLayout和Viewpager）：   
 1，则在当前的Activity的DrawerLayout添加fragment获取的FragmentManager是通过getSupportFragmentManager()；而在fragment中添加子fragment获取的FragmentManager是通过getChildFragmentManager()。   
 源码解析：   
@@ -103,9 +103,8 @@ final public FragmentManager getChildFragmentManager() {
        }  
    }  
    return mChildFragmentManager;  
-}  
-```   
-
+}    
+```    
 ```   
 /**
  * Return the FragmentManager for interacting with fragments associated
@@ -114,7 +113,7 @@ final public FragmentManager getChildFragmentManager() {
  */
 public FragmentManager getSupportFragmentManager() {
    return mFragments.getSupportFragmentManager();
-}
+}    
 ```   
 2，当点击DrawerLayout的tab切换到包含子fragment的fragment A时，最终调用lazyLoad()的只有fragment A，其子fragment则不会调用，解决如下：   
 ```   
@@ -135,8 +134,8 @@ protected void lazyLoad() {
              }
         }
     }
-}
-```   
+}    
+```    
 
 Screenshot
 -------------------------
