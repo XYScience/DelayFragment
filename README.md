@@ -22,8 +22,9 @@ public void setUserVisibleHint(boolean isVisibleToUser) {
         isVisible = false;
         onInVisible();
     }
-}
-```   
+}   
+```    
+
 ### 二，DrawerLayout模式   
 这种模式是通过add()方法添加fragment，show()方法显示，fragment是否可见是通过回调方法onHiddenChanged。
 ```   
@@ -44,8 +45,9 @@ public void onHiddenChanged(boolean hidden) {
         isVisible = false;
         onInVisible();
     }
-}
-```   
+}   
+```    
+
 ### 三，控制可见时是否马上加载数据   
 ```   
 @Override
@@ -56,26 +58,27 @@ public void onHiddenChanged(boolean hidden) {
     }
 ```   
 ```   
-    /**
-     * 界面可见时做相应的处理
-     */
-    protected void doVisible() {
-        if (isInit && isVisible) {
-            // isInit = false;/初始化完成
-            lazyLoad();
-        }
-    }
-```   
-```   
-    @Override
-    public void onResume() {
-        super.onResume();
-        // 判断当前fragment是否显示
-        if (getUserVisibleHint()) {
-            doVisible();
-        }
-    }
-```   
+/**
+ * 界面可见时做相应的处理
+ */
+protected void doVisible() {
+   if (isInit && isVisible) {
+       // isInit = false;/初始化完成
+       lazyLoad();
+   }
+}
+```    
+````    
+@Override
+public void onResume() {
+   super.onResume();
+   // 判断当前fragment是否显示
+   if (getUserVisibleHint()) {
+       doVisible();
+   }
+}    
+```    
+
 ### 注意点：    
 如果app的结构是DrawerLayout+（TabLayout和Viewpager）：   
 1，则在当前的Activity的DrawerLayout添加fragment获取的FragmentManager是通过getSupportFragmentManager()；而在fragment中添加子fragment获取的FragmentManager是通过getChildFragmentManager()。   
