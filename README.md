@@ -48,36 +48,9 @@ public void onHiddenChanged(boolean hidden) {
 }   
 ```    
 
-### 三，控制可见时是否马上加载数据   
-```   
-@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = initCreateView(inflater, container, savedInstanceState);
-        isFirst = true;
-        return view;
-    }
-```   
-```   
-/**
- * 界面可见时做相应的处理
- */
-protected void doVisible() {
-   if (isInit && isVisible) {
-       // isInit = false;/初始化完成
-       lazyLoad();
-   }
-}
-```    
-````    
-@Override
-public void onResume() {
-   super.onResume();
-   // 判断当前fragment是否显示
-   if (getUserVisibleHint()) {
-       doVisible();
-   }
-}   
-```    
+   
+      
+      
 
 ### 注意点：   
 如果app的结构是DrawerLayout+（TabLayout和Viewpager）：   
