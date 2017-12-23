@@ -83,7 +83,15 @@ public void onResume() {
        doVisible();
    }
 }
-```   
+```      
+```    
+@Override
+public void onDestroyView() {
+   super.onDestroyView(); 
+   isInit = false;
+}
+```    
+
 
 ### 六，注意点：   
 如果app的结构是DrawerLayout+（TabLayout和Viewpager）：    
