@@ -13,7 +13,7 @@
 而fragment主要用在两个地方：一是TabLayout和ViewPager结合使用，二是和DrawerLayout结合使用。   
    
 ### 三，TabLayout和ViewPager模式   
-这种模式下，是通过FragmentPagerAdapter方式添加fragment，fragment是否可见是通过回调方法setUserVisibleHint(该方法先于生命周期回调方法调用)，所以，要调用mViewPager.setOffscreenPageLimit(fragments.size-1); 缓存页面，防止切换时销毁fragment   
+这种模式下，是通过FragmentPagerAdapter方式添加fragment，fragment是否可见是通过回调方法setUserVisibleHint(该方法先于生命周期回调方法调用)，所以，要调用mViewPager.setOffscreenPageLimit(fragments.size-1)（也可以不设置，但要在onDestroyView方法里把 isFirst 置false）; 缓存页面，防止切换时销毁fragment   
 ```   
 /**
  * viewpager切换时调用，而且第一次是在onCreateView之前调用
