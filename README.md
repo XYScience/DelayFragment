@@ -78,8 +78,8 @@ protected void doVisible() {
 @Override
 public void onResume() {
    super.onResume();
-   // 判断当前fragment是否显示
-   if (getUserVisibleHint()) {
+   // 判断当前fragment是否显示，确保亮屏时继续加载
+   if (isVisible) {
        doVisible();
    }
 }
