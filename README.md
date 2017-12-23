@@ -1,4 +1,11 @@
-# DelayFragment   
+# DelayFragment       
+### FragmentPagerAdapter和FragmentStatePagerAdapter    
+#### FragmentPagerAdapter    
+切换Fragment会回调onDestroyView方法，但保留之前但Fragment对象。也就是说，这种方式创建的Fragment一直不会被销毁。    
+当使用setOffscreenPageLimit缓存Fragment时，onDestroyView方法不会回调。    
+#### FragmentStatePagerAdapter    
+切换Fragment会回调onDestroy方法，也就是说会销毁Fragment对象，且会回调onSaveInstanceState可以保存数据。    
+当使用setOffscreenPageLimit缓存Fragment时，onDestroy方法不会回调。    
 ### Fragment延迟加载数据   
 在实际使用中，考虑到性能和体验等方面，在fragment加载数据的时机有两种情况：   
 1，在页面第一次可见时，加载数据，往后再次进入到该页面，需要手动刷新重新获取数据：   
@@ -6,7 +13,7 @@
 而fragment主要用在两个地方：一是TabLayout和ViewPager结合使用，二是和DrawerLayout结合使用。   
    
 ### 一，TabLayout和ViewPager模式   
-这种模式下，是通过FragmentPagerAdapter方式添加fragment，fragment是否可见是通过回调方法setUserVisibleHint。其中，要调用mViewPager.setOffscreenPageLimit(fragments.size-1); 缓存页面，防止切换时销毁fragment   
+这种模式下，是通过FragmentPagerAdapter方式添加fragment，fragment是否可见是通过回调方法setUserVisibleHint(该方法先于生命周期回调方法调用)，所以，要调用mViewPager.setOffscreenPageLimit(fragments.size-1); 缓存页面，防止切换时销毁fragment   
 ```   
 /**
  * viewpager切换时调用，而且第一次是在onCreateView之前调用
