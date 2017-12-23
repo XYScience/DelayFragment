@@ -75,11 +75,17 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (getUserVisibleHint()) {
+        if (isVisible) {
             onVisible();
         }
-    }
-
+    }     
+         
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        isFirst = false;
+    }     
+         
     private void onVisible() {
         if (isFirst && isVisible) {
             onLazyLoad();
